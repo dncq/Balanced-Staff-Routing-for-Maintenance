@@ -2,4 +2,4 @@
 
 # Problem description
 
-There exist N customers 1,2,3,...,N where customer /i
+There exist N customers where customer i resides in city i (i= 1,2,3,...,N) that demand Internet maintenance service
