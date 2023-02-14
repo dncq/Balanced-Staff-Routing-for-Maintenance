@@ -2,11 +2,10 @@ import random
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
 import copy
 import time
 
-filename = r'C:\Users\VU TUAN MINH\DSA\1.txt'
+filename = r"C:\Users\DELL\OneDrive\Máy tính\Test data\N_10_K_2.txt"
 def INP(filename):
     with open(filename) as f:
         T = []
@@ -35,13 +34,13 @@ def TSP_tour_cost(y,c,N):
     return cost
 
 
+
 def TSP_onestep_opt2(y,c,N):
     y.append(y[0])
     for i in range(N-2):
         for j in range(i+2,N):
             total_distance_pre = c[y[i]][y[i+1]] + c[y[j]][y[j+1]]
             total_distance_post = c[y[i]][y[j]] + c[y[i+1]][y[j+1]]
-            # print(y[i],y[i+1],y[j],y[j+1],total_distance_pre-total_distance_post)
             if total_distance_post < total_distance_pre:
                 for k in range(math.ceil(((j-i-1)/2))):
                     temp = y[i+k+1]
@@ -75,13 +74,12 @@ for i in u:
     group.append(list(i))
 for u in group:
     u.insert(0,0)
-
+#print(group)
 
 c_group = []
-#location_group = []
 for subgroup in group:
     c_group.append([[c[i][j] for j in subgroup] for i in subgroup])
-    #location_group.append([location[i] for i in subgroup])
+
 
 max_iter = 200000
 total_cost = []
@@ -92,9 +90,7 @@ for m in range(K):
     sub_N = len(sub_node)
     sub_c = c_group[m]
     sub_y = list(range(sub_N))
-    #sub_location = location_group[m]
     cost_record, sub_y = TSP_opt2(sub_y, sub_c,sub_N, max_iter)
-    #TSP_tour_plot(sub_y,sub_location,sub_N)
     order_y.append(sub_y)
     total_cost.append(cost_record[-1])
 
@@ -117,6 +113,7 @@ for m in range(K):
     for x in range(len(y)):
         replace_y[index_y[x]] = y[x]
     Route_y.append(replace_y)
+
 
 
 def Swap_Node(i, price1, route1, j, price2, route2): #Dao 2 thanh pho index i, j tren 2 route1 va route2
@@ -205,17 +202,6 @@ for i in range (len(Route_y)):
     Cities_sorted.append([Route_x, str(i)])
 
 Cities_sorted.sort()
-
-#print(Cities_sorted)
-
-#Minimize (Routemax - Routemin)
-
-#Consider Route Min 
-
-#Cities_Sorted là các Route từ 1 đến K theo thứ tự tiền tăng dần 
-#Route_y là tour của các nhân viên K
-#Total_cost la gia tri di cua moi route
-
 route_index = list(range(N))
 cost_record, sub_y = TSP_opt2(route_index, c, N, max_iter)
 route_cost = cost_record[-1]
@@ -289,11 +275,9 @@ for routes in Route_y:
     print(*routes)
 with open('minh_nghien.txt','w') as f:
     f.write(str(K)+'\n')
-    # line = ''
     for routes in Route_y:
         f.write(str(len(routes))+ '\n')
         for i in range(len(routes)):
-            # line += str(routes[i]) + ' '
             f.write(str(routes[i])+' ')
         f.write('\n')
 
