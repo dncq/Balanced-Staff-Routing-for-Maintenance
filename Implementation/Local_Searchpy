@@ -24,36 +24,7 @@ def INP(filename):
 N,K,d,c = INP(filename)
 d.insert(0,0)
 Timing_Start = time.time()
-#print(c)
-#print(d)
 
-# N = 10
-# V = set(range(N+1))
-# location = [(np.random.uniform(0,50), np.random.uniform(0,50))]
-# plt.plot(location[-1][0], location[-1][1],'rs')
-
-# d = [0]
-# for i in V - {0}:
-#     location.append((np.random.uniform(0,50),np.random.uniform(0,50)))
-#     d.append(random.randint(1,3))
-#     plt.scatter(location[-1][0],location[-1][1],d[-1]*20,'b')
-#     plt.text(location[-1][0],location[-1][1],str(i))
-
-# plt.show()
-
-# def distance(a,b):
-#     return math.sqrt((a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]))
-
-# c = [[0 if i == j 
-#       else round(distance(location[i], location[j])) 
-#       for j in V] for i in V]
-
-# print(c)
-
-# np.random.seed(0)
-# y0 = list(np.random.permutation(N))
-# y = [y0[i] for i in range(N)]
-# print(y)
 
 def TSP_tour_cost(y,c,N):
     y.append(y[0])
@@ -63,16 +34,6 @@ def TSP_tour_cost(y,c,N):
     y.pop(-1)
     return cost
 
-
-# def TSP_tour_plot(y,location,N):
-#     y.append(y[0])
-#     for i in range(N):
-#         plt.plot([location[y[i]][0], location[y[i+1]][0]],[location[y[i]][1], location[y[i+1]][1]],'r')
-#     # plt.show()
-#     y.pop(-1)
-
-# print(TSP_tour_cost(y,c,N))
-# TSP_tour_plot(y,location,N)
 
 def TSP_onestep_opt2(y,c,N):
     y.append(y[0])
@@ -114,23 +75,13 @@ for i in u:
     group.append(list(i))
 for u in group:
     u.insert(0,0)
-#print(group)
+
 
 c_group = []
 #location_group = []
 for subgroup in group:
     c_group.append([[c[i][j] for j in subgroup] for i in subgroup])
     #location_group.append([location[i] for i in subgroup])
-# print(c_group)
-# print(location_group)
-# (label,y) = TSP_onestep_opt2(y,c,N)
-# cost = TSP_tour_cost(y,c,N)
-# (cost_record,y) = TSP_opt2(y,c,N,1000)
-# print(cost_record[-1])
-# TSP_tour_plot(y,location,N)
-# plt.plot(cost_record)
-# plt.show()
-# print(label,cost,y)
 
 max_iter = 200000
 total_cost = []
@@ -147,10 +98,7 @@ for m in range(K):
     order_y.append(sub_y)
     total_cost.append(cost_record[-1])
 
-# for i in V-{0}:
-#     plt.scatter(location[i][0],location[i][1],d[i]*20,'b')
-# plt.show()
-#print(total_cost)
+
 
 replace_y = []
 y_cities = []
@@ -170,7 +118,6 @@ for m in range(K):
         replace_y[index_y[x]] = y[x]
     Route_y.append(replace_y)
 
-#print(Route_y)
 
 def Swap_Node(i, price1, route1, j, price2, route2): #Dao 2 thanh pho index i, j tren 2 route1 va route2
     route1_copy = copy.deepcopy(route1)
@@ -349,6 +296,6 @@ with open('minh_nghien.txt','w') as f:
             # line += str(routes[i]) + ' '
             f.write(str(routes[i])+' ')
         f.write('\n')
-# print(Route_y)
+
 print(Cities_sorted)
 print(Timing_End - Timing_Start)
